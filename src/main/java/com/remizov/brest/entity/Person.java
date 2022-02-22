@@ -1,17 +1,20 @@
 package com.remizov.brest.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "person")
+    private List<Task> tasks;
 
     public Person() {
     }
@@ -40,6 +43,15 @@ public class Person {
 
     public Person setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public Person setTasks(List<Task> tasks) {
+        this.tasks = tasks;
         return this;
     }
 }
