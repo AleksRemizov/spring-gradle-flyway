@@ -1,4 +1,4 @@
-package com.remizov.brest.model;
+package com.remizov.brest.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
