@@ -3,12 +3,14 @@ package com.remizov.brest.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
     private Boolean completed;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -50,6 +52,15 @@ public class Task {
 
     public Task setPerson(Person person) {
         this.person = person;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Task setDescription(String description) {
+        this.description = description;
         return this;
     }
 }

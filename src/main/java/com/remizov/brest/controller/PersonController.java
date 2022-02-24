@@ -3,17 +3,27 @@ package com.remizov.brest.controller;
 import com.remizov.brest.entity.Person;
 import com.remizov.brest.exception.NoUniqueEntity;
 import com.remizov.brest.exception.PersonNotFoundException;
+import com.remizov.brest.model.PersonDto;
 import com.remizov.brest.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+@Transactional
 @RestController
 @RequestMapping("/persons")
 public class PersonController {
 
     @Autowired
     PersonService personService;
+
+    @GetMapping
+    public final List<PersonDto> getAllPerson(){
+        return personService.getAllPerson();
+    }
 
     @PostMapping
     public ResponseEntity registration(@RequestBody Person person){
@@ -43,6 +53,12 @@ public class PersonController {
         }
     }
 
+    @PutMapping( consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<Integer> updatePerson(@RequestBody Person person){
+        int updatedPersonId = personService.updatePerson(person);
+        return new ResponseEntity(updatedPersonId, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deletePerson(@PathVariable Integer id){
         try{
@@ -51,6 +67,5 @@ public class PersonController {
             return ResponseEntity.badRequest().body("Something wrong");
         }
     }
-
 }
 
