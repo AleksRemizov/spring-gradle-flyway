@@ -1,7 +1,7 @@
 package com.remizov.brest.controller;
 
 import com.remizov.brest.entity.Person;
-import com.remizov.brest.exception.NoUniqueEntity;
+import com.remizov.brest.exception.NoUniqueEntityException;
 import com.remizov.brest.exception.PersonNotFoundException;
 import com.remizov.brest.model.PersonDto;
 import com.remizov.brest.service.PersonService;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @Transactional
 @RestController
-@RequestMapping("/persons")
+@RequestMapping("/api/persons")
 public class PersonController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class PersonController {
             personService.registration(person);
              return ResponseEntity.ok().body("Client saved !");
 
-        } catch (NoUniqueEntity e) {
+        } catch (NoUniqueEntityException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
 
         } catch (Exception e) {
@@ -40,8 +40,8 @@ public class PersonController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity getOnePerson(@RequestParam Integer id){
+    @GetMapping("/{id}")
+    public ResponseEntity getOnePerson(@PathVariable("id") Integer id){
         try{
              return ResponseEntity.ok(personService.getOne(id));
 

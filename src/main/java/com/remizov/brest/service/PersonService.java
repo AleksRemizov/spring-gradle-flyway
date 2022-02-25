@@ -1,8 +1,7 @@
 package com.remizov.brest.service;
 
 import com.remizov.brest.entity.Person;
-import com.remizov.brest.exception.NoFoundPersons;
-import com.remizov.brest.exception.NoUniqueEntity;
+import com.remizov.brest.exception.NoUniqueEntityException;
 import com.remizov.brest.exception.PersonNotFoundException;
 import com.remizov.brest.model.PersonDto;
 import com.remizov.brest.repository.PersonRepository;
@@ -26,9 +25,9 @@ public class PersonService {
                     .collect(Collectors.toList());
     }
 
-    public Person registration(Person person) throws NoUniqueEntity {
+    public Person registration(Person person) throws NoUniqueEntityException {
         if(personRepository.findByName(person.getName()) != null){
-            throw  new NoUniqueEntity("Person with this name already exist");
+            throw  new NoUniqueEntityException("Person with this name already exist");
         }
         return personRepository.save(person);
     }
