@@ -1,7 +1,5 @@
 package com.remizov.brest.entity;
 
-import org.w3c.dom.stylesheets.LinkStyle;
-
 import javax.persistence.*;
 import java.util.List;
 

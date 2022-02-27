@@ -8,13 +8,13 @@ import com.remizov.brest.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Transactional
+import java.util.NoSuchElementException;
+
 @RestController
-@RequestMapping("/api/persons")
+@RequestMapping("/persons")
 public class PersonController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class PersonController {
 
     @GetMapping
     public final List<PersonDto> getAllPerson(){
-        return personService.getAllPerson();
+            return personService.getAllPerson();
     }
 
     @PostMapping
@@ -33,23 +33,17 @@ public class PersonController {
              return ResponseEntity.ok().body("Client saved !");
 
         } catch (NoUniqueEntityException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-
-        } catch (Exception e) {
-           return ResponseEntity.badRequest().body("Something wrong");
+            return ResponseEntity.badRequest().body("Person with this id already exist!");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getOnePerson(@PathVariable("id") Integer id){
+    public ResponseEntity getOnePerson(@PathVariable Integer id){
         try{
              return ResponseEntity.ok(personService.getOne(id));
 
-        } catch (PersonNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Something wrong");
+        } catch (NoSuchElementException e) {
+            throw new PersonNotFoundException("No found person with this id");
         }
     }
 
@@ -63,6 +57,10 @@ public class PersonController {
     public ResponseEntity deletePerson(@PathVariable Integer id){
         try{
             return ResponseEntity.ok(personService.delete(id));
+
+        } catch (PersonNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Something wrong");
         }

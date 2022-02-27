@@ -1,1 +1,1 @@
-# spring-gradle-flyway
+# spring-gradle-postgresql-flyway

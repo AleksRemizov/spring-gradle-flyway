@@ -1,7 +1,6 @@
 package com.remizov.brest.model;
 
 import com.remizov.brest.entity.Person;
-import com.remizov.brest.entity.Task;
 
 import java.util.List;
 import java.util.stream.Collectors;

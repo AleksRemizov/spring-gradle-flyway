@@ -1,21 +1,19 @@
 package com.remizov.brest.controller;
 
-import com.remizov.brest.entity.Person;
 import com.remizov.brest.entity.Task;
-import com.remizov.brest.exception.PersonNotFoundException;
-import com.remizov.brest.model.PersonDto;
+import com.remizov.brest.exception.TaskNotFoundException;
 import com.remizov.brest.model.TaskDto;
 import com.remizov.brest.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/tasks")
 public class TaskController {
 
     @Autowired
@@ -24,12 +22,7 @@ public class TaskController {
     @PostMapping
     public ResponseEntity createTask(@RequestBody Task task,
                                      @RequestParam Integer personId){
-        try{
             return ResponseEntity.ok(taskService.createTask(task,personId));
-
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Something wrong");
-        }
     }
 
     @GetMapping
@@ -37,20 +30,30 @@ public class TaskController {
         return taskService.findAllTasks();
     }
 
-    @GetMapping({"/{id}"})
-    public ResponseEntity<TaskDto> getTaskById(@PathVariable Integer id){
-        TaskDto task = taskService.findTaskById(id);
-        return new ResponseEntity<>(task, HttpStatus.OK);
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TaskDto> getTaskById(@PathVariable Integer id){
+        try {
+             TaskDto task = taskService.findTaskById(id);
+              return new ResponseEntity<>(task, HttpStatus.OK);
+
+        } catch (TaskNotFoundException exc) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Track Not Found", exc);
+        }
     }
 
-    @PutMapping
-    public ResponseEntity completeTask(@RequestParam Integer id){
-        try{
-            return ResponseEntity.ok(taskService.complete(id));
 
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Something wrong");
-        }
+    @PutMapping( consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<Integer> updateTask(@RequestParam Integer id,
+                                               @RequestBody Task task){
+        int updatedTaskId = taskService.update(id,task);
+        return new ResponseEntity(updatedTaskId, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteTask(@PathVariable Integer id){
+        int deletedId = taskService.deleteTask(id);
+        return new ResponseEntity(deletedId,HttpStatus.OK);
     }
 }
