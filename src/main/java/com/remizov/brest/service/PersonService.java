@@ -39,14 +39,9 @@ public class PersonService {
     }
 
     public PersonDto getOne(Integer id) throws  PersonNotFoundException {
-
-       try{
-           Person person = personRepository.findById(id).get();
+           Person person = personRepository.findById(id)
+                   .orElseThrow(()->new PersonNotFoundException("Person not found!"));
            return PersonDto.toModel(person);
-
-       }catch (NoSuchElementException ex) {
-           throw new PersonNotFoundException("Person not found!");
-       }
     }
 
     public Integer updatePerson(Person person){
