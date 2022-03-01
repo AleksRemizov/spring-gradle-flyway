@@ -1,6 +1,6 @@
-DROP table if exists person;
+drop table if exists task;
 
-DROP table if exists task;
+drop table if exists person;
 
 CREATE TABLE person (
   id SERIAL NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE person (
 CREATE TABLE task (
   id INT NOT NULL,
    title VARCHAR(255) NULL,
-   completed BIT(1) NULL,
+   completed BOOLEAN(1) NULL,
    description VARCHAR(255) NULL,
    person_id INT NULL,
    CONSTRAINT pk_task PRIMARY KEY (id)
