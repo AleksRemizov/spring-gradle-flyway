@@ -8,7 +8,7 @@ Simple application for person tasks management.
 
 ###Technology:
 
-* **Programme language**: JAVA 11+
+* **Programme language**: JAVA 16+
 
 * **Framework**: Spring Boot 2.6.3 +
 
