@@ -16,9 +16,11 @@ Simple application for person tasks management.
 
 * **Build**: Gradle 7.4+
 
-* **Database**: PostgreSQL 42.3.3
+* **Database**: PostgreSQL 
 
 * **Database migration**: Flyway 8.5.0
+
+* Lombok
 
 
 

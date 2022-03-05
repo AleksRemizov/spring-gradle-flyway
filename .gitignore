@@ -1,5 +1,7 @@
 HELP.md
 .gradle
+.jpb
+.run
 build/
 target/
 !gradle/wrapper/gradle-wrapper.jar
