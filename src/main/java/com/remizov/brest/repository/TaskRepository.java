@@ -1,6 +1,7 @@
 package com.remizov.brest.repository;
 
 import com.remizov.brest.entity.Task;
+import com.remizov.brest.projection.TaskTitleView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +15,8 @@ public interface TaskRepository extends JpaRepository<Task,Integer> {
 
     @Query("select t from Task t where t.title = :title and t.completed = :completed")
     List<Task> findByTitleAndCompleted(@Param("title") String title, @Param("completed") Boolean completed);
+
+    @Query("select t from Task t where t.completed = :completed")
+    List<TaskTitleView> findAllByCompletedStatus(@Param("completed")Boolean completed);
+
 }

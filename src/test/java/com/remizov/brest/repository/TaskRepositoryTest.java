@@ -2,6 +2,7 @@ package com.remizov.brest.repository;
 
 import com.remizov.brest.IntegrationTestBase;
 import com.remizov.brest.entity.Task;
+import com.remizov.brest.projection.TaskTitleView;
 import org.hamcrest.collection.IsCollectionWithSize;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,21 @@ class TaskRepositoryTest extends IntegrationTestBase {
 
     @Test
     void testFindByTitleAndCompleted(){
-        List<Task> tasks = taskRepository.findByTitleAndCompleted("some ",false);
-        assertThat(tasks, IsCollectionWithSize.hasSize(2));
+        List<Task> tasks = taskRepository.findByTitleAndCompleted("some title",false);
+        assertThat(tasks, IsCollectionWithSize.hasSize(1));
 
+    }
+
+    @Test
+    void testFindAllByCompletedStatus(){
+        List<TaskTitleView> tasks = taskRepository.findAllByCompletedStatus(false);
+        assertThat(tasks, IsCollectionWithSize.hasSize(2));
+    }
+
+    @Test
+    void testFindAllByCompletedStatusPositive(){
+        List<TaskTitleView> tasks = taskRepository.findAllByCompletedStatus(true);
+        assertTrue(tasks.isEmpty());
     }
 
 }

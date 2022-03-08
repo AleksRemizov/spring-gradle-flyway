@@ -2,6 +2,7 @@ package com.remizov.brest.repository;
 
 import com.remizov.brest.IntegrationTestBase;
 import com.remizov.brest.entity.Person;
+import com.remizov.brest.projection.PersonNameView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,12 @@ class PersonRepositoryTest extends IntegrationTestBase {
         List<Person> persons = personRepository.findByCustomQuery();
         assertNotNull(persons);
         assertThat(persons,hasSize(0));
+    }
 
+    @Test
+    void testFindAllPersonWithName(){
+        List<PersonNameView> persons = personRepository.findAllWithName();
+        assertNotNull(persons);
+        assertThat(persons,hasSize(2));
     }
 }
