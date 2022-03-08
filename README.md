@@ -6,7 +6,7 @@
 
 Simple application for person tasks management.
 
-###Technology:
+### Technology:
 
 * **Programme language**: JAVA 16+
 
