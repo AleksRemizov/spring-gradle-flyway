@@ -7,8 +7,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonRepositoryTest extends IntegrationTestBase {
@@ -43,5 +46,13 @@ class PersonRepositoryTest extends IntegrationTestBase {
                              .build();
         personRepository.save(person);
         assertNotNull(person.getId());
+    }
+
+    @Test
+    void testFindByCustomQuery(){
+        List<Person> persons = personRepository.findByCustomQuery();
+        assertNotNull(persons);
+        assertThat(persons,hasSize(0));
+
     }
 }
