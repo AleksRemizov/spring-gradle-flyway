@@ -16,8 +16,11 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String title;
+    @Column
     private Boolean completed;
+    @Column
     private String description;
 
     @ManyToOne

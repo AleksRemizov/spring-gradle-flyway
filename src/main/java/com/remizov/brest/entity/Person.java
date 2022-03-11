@@ -18,7 +18,9 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String name;
+    @Column
     private String password;
 
 }

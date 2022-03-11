@@ -49,12 +49,6 @@ class PersonRepositoryTest extends IntegrationTestBase {
         assertNotNull(person.getId());
     }
 
-    @Test
-    void testFindByCustomQuery(){
-        List<Person> persons = personRepository.findByCustomQuery();
-        assertNotNull(persons);
-        assertThat(persons,hasSize(0));
-    }
 
     @Test
     void testFindAllPersonWithName(){
