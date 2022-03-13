@@ -2,7 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-//	id "org.flywaydb.flyway" version "8.5.0"
+
 
 }
 
@@ -19,7 +19,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'junit:junit'
-//	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-core'
 	implementation 'junit:junit'
 	implementation 'org.postgresql:postgresql'
 
@@ -30,11 +30,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 }
-//flyway {
-//	url = 'jdbc:postgresql://localhost:5432/gradle_flyway'
-//	user = 'postgres'
-//	password = 'postgre'
-//}
 
 test {
 	useJUnitPlatform()

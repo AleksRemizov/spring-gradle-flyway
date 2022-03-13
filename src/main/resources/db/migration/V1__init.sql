@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS person (
+  id SERIAL PRIMARY KEY,
+   name VARCHAR(128) NOT NULL UNIQUE,
+   password VARCHAR(128) NULL
+);
+
+CREATE TABLE IF NOT EXISTS task (
+ id SERIAL PRIMARY KEY,
+   title VARCHAR(128) NOT NULL,
+   completed BOOLEAN NOT NULL,
+   description VARCHAR(128) NOT NULL,
+   person_id INTEGER REFERENCES person(id)
+);

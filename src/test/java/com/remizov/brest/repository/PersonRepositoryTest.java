@@ -52,8 +52,8 @@ class PersonRepositoryTest extends IntegrationTestBase {
 
     @Test
     void testFindAllPersonWithName(){
-        List<PersonNameView> persons = personRepository.findAllWithName();
+        List<Person> persons = personRepository.findAllWithName();
         assertNotNull(persons);
-        assertThat(persons,hasSize(2));
+        assertThat(persons,hasSize(4));
     }
 }

@@ -1,12 +1,10 @@
 package com.remizov.brest.repository;
 
 
-import com.remizov.brest.entity.Person;
-import com.remizov.brest.projection.PersonNameView;
 
-import java.util.List;
+import com.remizov.brest.entity.Person;
 
 public interface PersonCustomRepository {
 
-    List<PersonNameView> findAllWithName();
+    Person getOne(Integer id);
 }
